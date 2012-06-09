@@ -1,0 +1,1 @@
+Diese Datei löschen, in diesen Ordner kommen alle Dateien und Ordner des Clients rein.
