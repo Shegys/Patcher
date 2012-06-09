@@ -1,0 +1,121 @@
+﻿<Window x:Class="Patcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Patcher" Height="600" Width="1000" WindowStyle="None" ResizeMode="NoResize" 
+        AllowsTransparency="True" Background="{x:Null}" MouseLeftButtonDown="WindowMove">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA08258" Offset="0" />
+                        <GradientStop Color="#FF8D683A" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <RotateTransform Angle="-3" CenterX="20" CenterY="20" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.ColumnSpan="5">
+            <Grid.Background>
+                <ImageBrush ImageSource="Pictures/pergament.png" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Source="Pictures/logo.png" Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+            <Button Grid.Column="13" Grid.Row="1" Click="ClickCloseBtn">
+                X
+            </Button>
+            <Button Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="3" Click="ClickPlayGameBtn" Name="BtnStartGame">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Pictures/start.png" Stretch="UniformToFill"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5">Spiel Starten</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="3" Click="ClickSettingsBtn">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Pictures/settings.png" Stretch="UniformToFill"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5">Einstellungen</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="3" Click="ClickHomepageBtn">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Pictures/www.png" Stretch="UniformToFill"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5">Homepage</TextBlock>
+                </StackPanel>
+            </Button>
+            <Border BorderBrush="Black" Grid.Column="7" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="5" BorderThickness="1" Margin="5">
+                <ScrollViewer Name="TextScroll" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Background="#7C000000" Foreground="White" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <TextBlock Margin="5" Name="PatchBox"/>
+                    </TextBlock>
+                </ScrollViewer>
+            </Border>
+            <ProgressBar Grid.Column="3" Grid.Row="10" Grid.ColumnSpan="8" Margin="5" Opacity="0.8" Name="ProgressTotal" Foreground="#FF309EFC" Background="#FF405269" BorderBrush="Black"></ProgressBar>
+            <ProgressBar Grid.Column="3" Grid.Row="12" Grid.ColumnSpan="8" Margin="5" Opacity="0.8" Name="ProgressFile" Background="#FF405269" Foreground="#FF309EFC" BorderBrush="Black"></ProgressBar>
+
+            <Label Grid.Column="3" Grid.Row="9" VerticalAlignment="Bottom" Margin="5" Grid.ColumnSpan="4" Name="LblTotalFiles">Gesamt: 0/0 Dateien</Label>
+            <Label Grid.Column="9" Grid.Row="9" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" Name="LblTotalPercent">0%</Label>
+            
+            <Label Grid.Column="3" Grid.Row="11" VerticalAlignment="Bottom" Margin="5" Grid.ColumnSpan="5" Name="LblFileName">Datei: null</Label>
+            <Label Grid.Column="9" Grid.Row="11" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" Name="LblPercentFile">0%</Label>
+        </Grid>
+        <Image Grid.ColumnSpan="2" Source="Pictures/warrior.png" Margin="25,0,0,0" />
+        <Image Grid.Column="5" Grid.ColumnSpan="2" Source="Pictures/sura.png"/>
+    </Grid>
+</Window>
