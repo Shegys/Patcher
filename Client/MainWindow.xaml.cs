@@ -68,7 +68,12 @@ namespace Patcher
             }
             else
             {
-                this.LoadPatchList();
+                System.ComponentModel.BackgroundWorker bgWorker = new System.ComponentModel.BackgroundWorker();
+                bgWorker.DoWork += delegate
+                {
+                    this.LoadPatchList();
+                };
+                bgWorker.RunWorkerAsync();
             }
         }
         
@@ -78,8 +83,16 @@ namespace Patcher
         /// <param name="txt"></param>
         private void AddTextToList(string txt)
         {
-            PatchBox.Text += String.Format("{0}\r\n", txt);
-            TextScroll.LineDown();
+            PatchBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                PatchBox.Text += String.Format("{0}\r\n", txt);
+                return null;
+            }), null);
+            TextScroll.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                TextScroll.ScrollToEnd();
+                return null;
+            }), null);
         }
 
         /// <summary>
@@ -87,8 +100,16 @@ namespace Patcher
         /// </summary>
         private void EventDownloadProgres(object sender, DownloadProgressChangedEventArgs e)
         {
-            LblPercentFile.Content = String.Format("{0}%", e.ProgressPercentage);
-            ProgressFile.Value = e.ProgressPercentage;
+            LblPercentFile.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblPercentFile.Content = String.Format("{0}%", e.ProgressPercentage);
+                return null;
+            }), null);
+            ProgressFile.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                ProgressFile.Value = e.ProgressPercentage;
+                return null;
+            }), null);
         }
 
         /// <summary>
@@ -178,7 +199,11 @@ namespace Patcher
         /// </summary>
         private void LoadPatchList()
         {
-            LblFileName.Content = "Datei: patchlist";
+            LblFileName.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblFileName.Content = "Datei: patchlist";
+                return null;
+            }), null);
             this.AddTextToList("Patchlist wird heruntergeladen...");
 
             WebClient DLPatchList = new WebClient();
@@ -198,8 +223,16 @@ namespace Patcher
         /// <param name="FileNr"></param>
         private void RefreshInterface(int FileNr)
         {
-            LblTotalFiles.Content = String.Format("Gesamt: {0}/{1} Dateien", FileNr, LstPatchlist.Count.ToString());
-            ProgressTotal.Maximum = LstPatchlist.Count;
+            LblTotalFiles.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblTotalFiles.Content = String.Format("Gesamt: {0}/{1} Dateien", FileNr, LstPatchlist.Count.ToString());
+                return null;
+            }), null);
+            ProgressTotal.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                ProgressTotal.Maximum = LstPatchlist.Count;
+                return null;
+            }), null);
         }
 
         /// <summary>
@@ -228,9 +261,21 @@ namespace Patcher
         /// <param name="Filename"></param>
         private void RefreshFileInterface(string Filename)
         {
-            LblFileName.Content = String.Format("Datei: {0}", Filename);
-            LblPercentFile.Content = "0%";
-            ProgressFile.Value = 0;
+            LblFileName.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblFileName.Content = String.Format("Datei: {0}", Filename);
+                return null;
+            }), null);
+            LblPercentFile.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblPercentFile.Content = "0%";
+                return null;
+            }), null);
+            ProgressFile.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                ProgressFile.Value = 0;
+                return null;
+            }), null);
         }
 
         /// <summary>
@@ -239,9 +284,21 @@ namespace Patcher
         /// <param name="FileNumber"></param>
         public void RefreshCurrentInterface(int FileNumber)
         {
-            LblTotalFiles.Content = String.Format("Gesamt: {0}/{1} Dateien", FileNumber, LstPatchlist.Count.ToString());
-            LblTotalPercent.Content = String.Format("{0}%", (FileNumber * 100 / LstPatchlist.Count));
-            ProgressTotal.Value = FileNumber;
+            LblTotalFiles.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblTotalFiles.Content = String.Format("Gesamt: {0}/{1} Dateien", FileNumber, LstPatchlist.Count.ToString());
+                return null;
+            }), null);
+            LblTotalPercent.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                LblTotalPercent.Content = String.Format("{0}%", (FileNumber * 100 / LstPatchlist.Count));
+                return null;
+            }), null);
+            ProgressTotal.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                ProgressTotal.Value = FileNumber;
+                return null;
+            }), null);
             CheckFiles(FileNumber);
         }
 
@@ -292,7 +349,11 @@ namespace Patcher
             this.AddTextToList("Das Spiel wird gestartet.");
 
             Process.Start("cmd", String.Format("/c start {0}", OConfig.GameBinary));
-            BtnStartGame.IsEnabled = true;
+            BtnStartGame.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new System.Windows.Threading.DispatcherOperationCallback(delegate
+            {
+                BtnStartGame.IsEnabled = true;
+                return null;
+            }), null);
         }
 
         /// <summary>
